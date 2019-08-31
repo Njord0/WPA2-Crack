@@ -75,9 +75,6 @@ if __name__ == "__main__":
 	elif sys.platform.startswith("win"):
 		sys.exit("[!] This script is for linux only!")
 
-	if get_iface_mode(args.interface) != "Monitor":
-		sys.exit("[!] Interface must be in monitor mode!")
-
 	if not args.channel in range(1, 14):
 		sys.exit("[!] Channel must be in range 1-14")
 
