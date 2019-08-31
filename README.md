@@ -7,7 +7,7 @@ This a POC to show how a WPA-2 network can be cracked by computing the message i
   ```
   
 ## Usage
-  You should first run wifi-scan.py to discover wifi-network around you
+  You should first run wifi-scan.py to discover wifi network around you
   The interface needs to be in monitor mode, no checks is done yet :(
   ```python
   python3 wifi-scan.py --interface wlan0
