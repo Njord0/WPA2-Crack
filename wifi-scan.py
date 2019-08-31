@@ -43,7 +43,7 @@ def rand_channel(interface):
 	while 1:
 		rand_channel = random.randint(1, 14)
 
-		subprocess.Popen("iwconfig {} channel {}".format(interface, int(rand_channel)), shell=True, stdout=None)
+		subprocess.Popen("iwconfig {} channel {}".format(interface, int(rand_channel)), shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 		time.sleep(0.1)
 
 def packet_filter(packet):
