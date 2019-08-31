@@ -56,6 +56,7 @@ def packet_filter(packet):
 
 			print("{} \t\t {} \t {}".format(channel, bssid, ssid.decode()))
 
+
 if __name__ == "__main__":
 	AP_LIST = []
 	DEV_LIST = []
@@ -63,6 +64,9 @@ if __name__ == "__main__":
 	if sys.platform.startswith('linux'):
 		if os.getuid() != 0:
 			sys.exit("[!] This script need to run as root to work properly")
+
+	if get_iface_mode(args.interface) != "Monitor":
+		sys.exit("[!] Interface must be in monitor mode!")
 
 	elif sys.platform.startswith("win"):
 		sys.exit("[!] This script is for linux only!")
