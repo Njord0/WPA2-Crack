@@ -70,8 +70,10 @@ def main(ssid, wordlist, pcap):
 
 				print("[+] Password found: {} ({} seconds)".format(password, running_time))
 				print("[+] Tried {} passwords".format(i))
-
 				break
+
+		else:
+			print("[!] Password not found")
 
 def calc_ptk(key, A, B):
 	blen = 64
