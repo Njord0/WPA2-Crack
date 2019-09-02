@@ -124,6 +124,6 @@ if __name__ == "__main__":
 		from scapy.all import *
 		print("Done.")
 	except ImportError:
-		sys.exit("\n[!] Error happened while scapy module import")
+		sys.exit("\n[!] Error happened while importing scapy")
 
 	main(args.ssid, args.wordlist, args.pcap)
