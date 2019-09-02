@@ -39,15 +39,14 @@ def main(ssid, wordlist, pcap):
 
 	pke = b"Pairwise key expansion"
 
-	a = input("Press enter to start cracking...")
+	a = input("Press enter to start cracking...\n")
 	key_data = min(ap_mac, client_mac) + max(ap_mac, client_mac) + min(aNonce, sNonce) + max(aNonce, sNonce)
-
-	wpa_data = binascii.hexlify(bytes(eapol_message["message_2"][EAPOL]))
-	wpa_data = wpa_data.replace(binascii.hexlify(eapol_message["message_2"][Raw].load)[154:186], b"0" * 32)
-	wpa_data = binascii.a2b_hex(wpa_data)
 
 	message_integrity_check = binascii.hexlify(eapol_message["message_2"][Raw].load)[154:186]
 
+	wpa_data = binascii.hexlify(bytes(eapol_message["message_2"][EAPOL]))
+	wpa_data = wpa_data.replace(message_integrity_check, b"0" * 32)
+	wpa_data = binascii.a2b_hex(wpa_data)
 
 	start_time = datetime.now()
 
