@@ -1,1 +1,2 @@
-scapy
+pbkdf2==1.3
+scapy==2.4.3
