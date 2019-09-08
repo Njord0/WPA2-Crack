@@ -48,7 +48,7 @@ def eapol_filter(packet):
 
 
 			if len(PACKET_LIST) == 4:
-				print("4-Way handshake captured, now saving...")
+				print("[+] 4-Way handshake captured, now saving...")
 
 				PACKET_LIST = [packet_1, packet_2, packet_3, packet_4]
 				try:
