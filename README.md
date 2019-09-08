@@ -13,12 +13,12 @@ This a POC to show how a WPA-2 network can be cracked by computing the message i
   python3 wifi-scan.py --interface wlan0
   ```
   
-  SSID name, BSSID and channel should be displayed for every wifi network
+  SSID, BSSID and channel should be displayed for every wifi network
   We are now ready to capture the 4-Way handshake for a choosen network
   ```python
   python3 wifi-capture-handshake.py --interface wlan0 --bssid xx:xx:xx:xx:xx:xx --channel 1
   ```
-  The script is now waiting for an authentication to happen, we can use the wifi-deauth.py script to hurry it
+  The script is now waiting for an authentication, we can use the wifi-deauth.py script to disconnect network user
   The script will send deauthencation packets every 0.2 seconds to make an authentication happen
   example:
   ```python
@@ -32,5 +32,3 @@ This a POC to show how a WPA-2 network can be cracked by computing the message i
   We need to be sure to enter the good ssid, because no check is made so the script will never found the password
   
   If the password is in the wordlist, it will be found and displayed to screen.
-  
-  
