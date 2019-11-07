@@ -3,6 +3,8 @@ This a POC to show how a WPA-2 network can be cracked by computing the message i
 
 ## Installation
   ```python
+  git clone https://github.com/nicolas031/WPA2-Crack.git
+  cd WPA2-Crack
   pip3 install -r requirements.txt
   ```
   
