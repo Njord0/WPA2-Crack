@@ -2,8 +2,8 @@
 
 """
 A simple wifi scanner using scapy to sniff beacon frame and probe response.
-Author: Nicolas
-github: https://github.com/nicolas031/
+Author: Njörd
+github: https://github.com/Njord0/
 """
 
 import argparse
@@ -27,8 +27,9 @@ args = parser.parse_args()
 def main(interface):
     conf.iface = interface
 
-    rand_channel_t = Thread(target=rand_channel, args=(interface,))
-    rand_channel_t.start()
+    rand_chan = Thread(target=rand_channel, args=(interface,))
+    rand_chan.daemon = True
+    rand_chan.start()
 
     print("Channel \t BSSID \t\t\t SSID")
     print("------- \t ----- \t\t\t ----")
