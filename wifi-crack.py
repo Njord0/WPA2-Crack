@@ -17,7 +17,7 @@ import os
 import sys
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-s", "--ssid", help="Access point SSID, a wrong SSID will make the whole program useless", required=True)
+# parser.add_argument("-s", "--ssid", help="Access point SSID, a wrong SSID will make the whole program useless", required=True)
 parser.add_argument("-w", "--wordlist", help="The wordlist for the bruteforce", required=True)
 parser.add_argument("-p", "--pcap", help="The pcap where EAPOL authentication is", required=True)
 args = parser.parse_args()
@@ -67,12 +67,15 @@ def get_eapol(pcap):
                 messages["message_4"] = packet
 
         elif packet.haslayer(Dot11Beacon):
-            messages["message_ssid"] = get_ssid(packet)
+            messages["message_ssid"] = get_ssid(packet).decode()
+
+            if not messages["message_1"].addr3 == packet.addr3:
+                sys.exit("[!] Could not find a suitable beacon for this wpa_handshake...")
 
             if len(messages) == 5:
                 return messages
 
-def main(ssid, wordlist, pcap):
+def main(wordlist, pcap):
     
     messages = get_eapol(pcap)
 
@@ -98,11 +101,10 @@ def main(ssid, wordlist, pcap):
     wpa_data = wpa_data.replace(message_integrity_check, b"0" * 32)
     wpa_data = binascii.a2b_hex(wpa_data)
 
-    print("[+] Find correct EAPOL authentication for {} / {}".format(messages["message_ssid"].decode(), get_bssid(messages)))
+    print("[+] Find correct EAPOL authentication for {} / {}".format(messages["message_ssid"], get_bssid(messages)))
 
-    a = input("\nPress enter to start cracking...\n")
+    input("Press enter to start cracking...")
     
-
     start_time = datetime.now()
 
     with open(wordlist, "r") as passwords:
@@ -112,7 +114,7 @@ def main(ssid, wordlist, pcap):
             password = password.replace("\n", "")
             i += 1
 
-            pairwise_master_key = calc_pmk(ssid, password)
+            pairwise_master_key = calc_pmk(messages["message_ssid"], password)
 
             pairwise_transient_key = calc_ptk(pairwise_master_key, pke, key_data)
 
@@ -122,7 +124,7 @@ def main(ssid, wordlist, pcap):
             if mic[:-8] == message_integrity_check.decode():
                 running_time = datetime.now() - start_time
 
-                print("[+] Password found: {} ({} seconds)".format(password, running_time))
+                print("\n[+] Password found: {} ({} seconds)".format(password, running_time))
                 print("[+] Tried {} passwords".format(i))
                 break
 
@@ -131,12 +133,12 @@ def main(ssid, wordlist, pcap):
 
 if __name__ == "__main__":
 
-
     print("[+] Importing scapy...", end="")
     try:
         from scapy.all import *
-        print("Done.")
     except ImportError:
         sys.exit("\n[!] Error happened while importing scapy")
+    else:
+        print("Done.\n")
 
-    main(args.ssid, args.wordlist, args.pcap)
+    main(args.wordlist, args.pcap)
