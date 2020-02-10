@@ -36,6 +36,9 @@ This a POC to show how a WPA-2 network can be cracked by computing the message i
   python3 crack_password -w wordlist -p handshake.pcap
   ```
   If the password is in the wordlist, it will be found and displayed to the screen.
+
+  Here is a short video:
+  [![Alt text](https://img.youtube.com/vi/U7SkzveOCqs/0.jpg)](https://www.youtube.com/watch?v=U7SkzveOCqs)
   
   ### Changelogs
   ```
