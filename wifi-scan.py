@@ -62,19 +62,19 @@ if __name__ == "__main__":
     AP_LIST = []
     DEV_LIST = []
 
-    if sys.platform.startswith('linux'):
+    if sys.platform.startswith("linux"):
         if os.getuid() != 0:
             sys.exit("[!] This script need to run as root to work properly")
-
-
     elif sys.platform.startswith("win"):
         sys.exit("[!] This script is for linux only!")
 
 
+    print("[+] Importing scapy...", end="")
     try:
-        print("[+] Importing scapy...", end=" ")
         from scapy.all import *
-        print("Done.")  
     except ImportError:
-        sys.exit("\n[!] Error happened while importing scapy")
+        sys.exit("[!] Error happened while importing scapy\n")
+    else:
+        print("Done.\n")
+
     main(args.interface)

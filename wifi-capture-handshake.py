@@ -65,7 +65,6 @@ def main(interface, bssid, channel, output):
     conf.iface = interface
     subprocess.Popen("iwconfig {} channel {}".format(interface, channel), shell=True)
 
-    
     print("[+] Writing file {}".format("wpa_handshake01.pcap" if not output else output))
     print("[+] Capturing 4-Way handshake [{}]...".format(bssid))
 
@@ -80,7 +79,7 @@ if __name__ == "__main__":
         sys.exit("[!] This script is for linux only!")
 
     if not args.channel in range(1, 14):
-        sys.exit("[!] Channel must be in range 1-14")
+        sys.exit("[!] Channel must be in range 1-13")
 
     print("[+] Importing scapy...", end="")
     try:
@@ -89,7 +88,6 @@ if __name__ == "__main__":
         sys.exit("[!] Error happened while importing scapy\n")
     else:
         print("Done.\n")
-
 
     packet_1 = packet_2 = packet_3 = packet_4 = packet_5 = False
     main(args.interface, args.bssid, args.channel, args.output)

