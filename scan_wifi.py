@@ -7,7 +7,6 @@ github: https://github.com/Njord0/
 """
 
 import argparse
-import ctypes
 import subprocess
 import logging
 import time
