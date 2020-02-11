@@ -2,7 +2,7 @@
 
 """
 Script to capture the eapol authentication when a client connect to the access point,
-You shouldn't run wifi-scan.py at same time to avoid errors with the channel.
+You shouldn't run wifi-scan.py at same time to avoid errors.
 Author: Njörd
 github: https://github.com/Njord0/
 """
