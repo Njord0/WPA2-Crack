@@ -28,10 +28,9 @@ def eapol_filter(packet):
     global packet_1, packet_2, packet_3, packet_4, packet_5
 
     if packet.haslayer(EAPOL):
-        if args.bssid in [packet.addr1, packet.addr2, packet.addr3]:
+        if args.bssid.lower() in [packet.addr1, packet.addr2, packet.addr3]:
             packet_raw = binascii.hexlify(packet[Raw].load)
         else:
-            print(packet)
             return
 
         if packet_raw[2:6].decode() == "008a": #message_1
@@ -47,7 +46,7 @@ def eapol_filter(packet):
             packet_4 = packet
 
     elif packet.haslayer(Dot11Beacon):
-        if args.bssid in [packet.addr1, packet.addr2, packet.addr3]:
+        if args.bssid.lower() in [packet.addr1, packet.addr2, packet.addr3]:
             packet_5 = packet
 
     if packet_1 and packet_2 and packet_3 and packet_4 and packet_5:
