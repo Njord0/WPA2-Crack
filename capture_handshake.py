@@ -25,11 +25,14 @@ parser.add_argument("-o", "--output", help="Output file", required=False)
 args = parser.parse_args()
 
 def eapol_filter(packet):
-    packet_1 = packet_2 = packet_3 = packet_4 = packet_5 = False
+    global packet_1, packet_2, packet_3, packet_4, packet_5
 
     if packet.haslayer(EAPOL):
         if args.bssid in [packet.addr1, packet.addr2, packet.addr3]:
             packet_raw = binascii.hexlify(packet[Raw].load)
+        else:
+            print(packet)
+            return
 
         if packet_raw[2:6].decode() == "008a": #message_1
             packet_1 = packet
@@ -57,6 +60,8 @@ def eapol_filter(packet):
 
         except Exception as e:
             print(e)
+
+packet_1 = packet_2 = packet_3 = packet_4 = packet_5 = False
 
 def main(interface, bssid, channel, output):
 
